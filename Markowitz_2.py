@@ -70,8 +70,14 @@ class MyPortfolio:
         """
         TODO: Complete Task 4 Below
         """
-        
-        
+        asset_returns = self.returns[assets]  
+        mean_ret = asset_returns.mean()
+        vol = asset_returns.std() + 1e-8 
+        sharpe = (mean_ret / vol) * np.sqrt(252)
+        best_asset = sharpe.idxmax()
+        w = pd.Series(0.0, index=assets)
+        w[best_asset] = 1.0
+        self.portfolio_weights.loc[:, assets] = w.values
         """
         TODO: Complete Task 4 Above
         """
